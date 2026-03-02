@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sagar Digital | Digital Marketing Agency Kolkata</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+  :root {
+    --dark-blue: #0f172a;
+    --black: #020617;
+    --sky-blue: #38bdf8;
+    --white: #ffffff;
+    --sky-light: rgba(56,189,248,0.1);
+    --sky-glow: rgba(56,189,248,0.3);
+    --card-bg: #1e293b;
+    --border: rgba(56,189,248,0.15);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;background:var(--dark-blue);color:var(--white);overflow-x:hidden;}
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar{width:6px;}
+  ::-webkit-scrollbar-track{background:var(--black);}
+  ::-webkit-scrollbar-thumb{background:var(--sky-blue);border-radius:3px;}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;width:100%;z-index:1000;padding:0 5%;backdrop-filter:blur(20px);background:rgba(15,23,42,0.9);border-bottom:1px solid var(--border);transition:all .3s;}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:70px;}
+  .logo{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.5rem;color:var(--white);text-decoration:none;}
+  .logo span{color:var(--sky-blue);}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .3s;position:relative;}
+  .nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;background:var(--sky-blue);transition:width .3s;}
+  .nav-links a:hover{color:var(--sky-blue);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{background:var(--sky-blue);color:var(--black)!important;padding:.5rem 1.2rem;border-radius:50px;font-weight:600!important;}
+  .nav-cta:hover{background:white!important;}
+  .nav-cta::after{display:none!important;}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;}
+  .hamburger span{width:25px;height:2px;background:var(--white);transition:all .3s;border-radius:2px;}
+
+  /* PAGES */
+  .page{display:none;min-height:100vh;}
+  .page.active{display:block;}
+
+  /* HERO */
+  #home{display:none;}
+  #home.active{display:block;}
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 5%;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%, rgba(56,189,248,0.08) 0%, transparent 60%),radial-gradient(ellipse at 20% 80%, rgba(56,189,248,0.05) 0%, transparent 50%);}
+  .hero-particles{position:absolute;inset:0;overflow:hidden;}
+  .particle{position:absolute;width:2px;height:2px;background:var(--sky-blue);border-radius:50%;animation:float linear infinite;opacity:0;}
+  @keyframes float{0%{transform:translateY(100vh) rotate(0deg);opacity:0;}10%{opacity:.6;}90%{opacity:.6;}100%{transform:translateY(-100px) rotate(360deg);opacity:0;}}
+  .hero-content{max-width:650px;z-index:2;animation:fadeInUp .8s ease forwards;}
+  .hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:var(--sky-light);border:1px solid var(--border);padding:.4rem 1rem;border-radius:50px;font-size:.8rem;color:var(--sky-blue);margin-bottom:1.5rem;font-weight:500;}
+  .hero-badge i{font-size:.7rem;animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;};}
+  .hero h1{font-family:'Poppins',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:800;line-height:1.1;margin-bottom:1rem;}
+  .hero h1 .highlight{color:var(--sky-blue);position:relative;}
+  .hero p.tagline{font-size:1.1rem;color:rgba(255,255,255,0.7);line-height:1.7;margin-bottom:2rem;max-width:500px;}
+  .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;}
+  .btn-primary{background:var(--sky-blue);color:var(--black);padding:.9rem 2rem;border-radius:50px;font-weight:700;text-decoration:none;font-family:'Poppins',sans-serif;font-size:.95rem;transition:all .3s;box-shadow:0 0 20px var(--sky-glow);animation:glow 2s ease-in-out infinite;}
+  @keyframes glow{0%,100%{box-shadow:0 0 20px var(--sky-glow);}50%{box-shadow:0 0 40px rgba(56,189,248,0.6),0 0 60px rgba(56,189,248,0.3);}}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 0 50px rgba(56,189,248,0.7);}
+  .btn-secondary{background:transparent;color:var(--white);padding:.9rem 2rem;border-radius:50px;font-weight:600;text-decoration:none;font-family:'Poppins',sans-serif;font-size:.95rem;border:2px solid var(--border);transition:all .3s;}
+  .btn-secondary:hover{border-color:var(--sky-blue);color:var(--sky-blue);transform:translateY(-3px);}
+  .hero-img{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:42%;max-width:550px;z-index:1;border-radius:20px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,0.5),0 0 60px rgba(56,189,248,0.1);}
+  .hero-img img{width:100%;height:420px;object-fit:cover;transition:transform .5s;}
+  .hero-img:hover img{transform:scale(1.05);}
+  .hero-img::before{content:'';position:absolute;inset:0;border:1px solid var(--border);border-radius:20px;z-index:2;}
+  .hero-stats{display:flex;gap:2rem;margin-top:2.5rem;flex-wrap:wrap;}
+  .stat{text-align:left;}
+  .stat-num{font-family:'Poppins',sans-serif;font-size:1.8rem;font-weight:800;color:var(--sky-blue);}
+  .stat-label{font-size:.8rem;color:rgba(255,255,255,0.5);font-weight:500;}
+
+  /* SECTIONS SHARED */
+  section{padding:100px 5%;}
+  .section-label{font-size:.8rem;font-weight:600;color:var(--sky-blue);text-transform:uppercase;letter-spacing:3px;margin-bottom:.8rem;}
+  .section-title{font-family:'Poppins',sans-serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:1rem;line-height:1.2;}
+  .section-sub{color:rgba(255,255,255,0.6);font-size:1rem;line-height:1.7;max-width:600px;}
+  .section-header{margin-bottom:4rem;}
+  .section-header.center{text-align:center;}
+  .section-header.center .section-sub{margin:0 auto;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .about-img-wrap{position:relative;border-radius:20px;overflow:hidden;}
+  .about-img-wrap img{width:100%;height:500px;object-fit:cover;border-radius:20px;transition:transform .5s;}
+  .about-img-wrap:hover img{transform:scale(1.04);}
+  .about-img-wrap::after{content:'';position:absolute;inset:0;border:1px solid var(--border);border-radius:20px;}
+  .about-badge{position:absolute;bottom:20px;left:20px;background:var(--dark-blue);border:1px solid var(--border);padding:1rem 1.5rem;border-radius:12px;z-index:2;backdrop-filter:blur(10px);}
+  .about-badge .num{font-family:'Poppins',sans-serif;font-size:2rem;font-weight:800;color:var(--sky-blue);}
+  .about-badge p{font-size:.8rem;color:rgba(255,255,255,0.6);}
+  .skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:2rem;}
+  .skill-item{display:flex;align-items:center;gap:.7rem;background:var(--card-bg);padding:.8rem 1rem;border-radius:10px;border:1px solid var(--border);font-size:.85rem;transition:all .3s;}
+  .skill-item:hover{border-color:var(--sky-blue);transform:translateX(4px);}
+  .skill-item i{color:var(--sky-blue);width:20px;}
+
+  /* SERVICES */
+  .services-section{background:linear-gradient(180deg,var(--dark-blue) 0%,var(--black) 100%);}
+  .services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+  .service-card{background:var(--card-bg);border:1px solid var(--border);border-radius:20px;padding:2rem;transition:all .4s;position:relative;overflow:hidden;}
+  .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--sky-blue),transparent);transform:scaleX(0);transition:transform .4s;}
+  .service-card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(0,0,0,0.4),0 0 30px rgba(56,189,248,0.08);border-color:rgba(56,189,248,0.3);}
+  .service-card:hover::before{transform:scaleX(1);}
+  .service-icon{width:55px;height:55px;background:var(--sky-light);border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem;border:1px solid var(--border);}
+  .service-icon i{color:var(--sky-blue);font-size:1.3rem;}
+  .service-card h3{font-family:'Poppins',sans-serif;font-size:1.1rem;font-weight:700;margin-bottom:.5rem;}
+  .service-card p{color:rgba(255,255,255,0.6);font-size:.9rem;line-height:1.6;margin-bottom:1.2rem;}
+  .service-price{font-family:'Poppins',sans-serif;font-weight:700;color:var(--sky-blue);font-size:1rem;}
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;max-width:1000px;margin:0 auto;}
+  .pricing-card{background:var(--card-bg);border:1px solid var(--border);border-radius:24px;padding:2.5rem 2rem;text-align:center;transition:all .4s;position:relative;overflow:hidden;}
+  .pricing-card.featured{background:linear-gradient(135deg,#1e3a5f,#1e293b);border-color:var(--sky-blue);box-shadow:0 0 40px rgba(56,189,248,0.15);}
+  .pricing-card:hover{transform:translateY(-10px);box-shadow:0 25px 60px rgba(0,0,0,0.5);}
+  .featured-badge{position:absolute;top:1rem;right:1rem;background:var(--sky-blue);color:var(--black);font-size:.7rem;font-weight:700;padding:.3rem .8rem;border-radius:50px;text-transform:uppercase;letter-spacing:1px;}
+  .pricing-card .plan{font-family:'Poppins',sans-serif;font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--sky-blue);margin-bottom:.5rem;}
+  .pricing-card .price{font-family:'Poppins',sans-serif;font-size:2.8rem;font-weight:800;margin:.5rem 0;line-height:1;}
+  .pricing-card .price sup{font-size:1.2rem;color:var(--sky-blue);}
+  .pricing-card .price-type{font-size:.8rem;color:rgba(255,255,255,0.5);margin-bottom:.5rem;}
+  .pricing-card .focus{font-size:.85rem;color:rgba(255,255,255,0.7);margin-bottom:1.5rem;font-style:italic;}
+  .pricing-divider{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+  .pricing-features{list-style:none;text-align:left;margin-bottom:2rem;}
+  .pricing-features li{display:flex;align-items:center;gap:.7rem;padding:.5rem 0;font-size:.9rem;color:rgba(255,255,255,0.8);}
+  .pricing-features li i{color:var(--sky-blue);font-size:.8rem;flex-shrink:0;}
+  .btn-pricing{display:block;padding:.9rem;border-radius:50px;font-weight:700;font-family:'Poppins',sans-serif;font-size:.9rem;text-decoration:none;transition:all .3s;text-align:center;}
+  .btn-pricing.solid{background:var(--sky-blue);color:var(--black);}
+  .btn-pricing.solid:hover{transform:translateY(-2px);box-shadow:0 10px 30px var(--sky-glow);}
+  .btn-pricing.outline{border:2px solid var(--border);color:var(--white);}
+  .btn-pricing.outline:hover{border-color:var(--sky-blue);color:var(--sky-blue);}
+
+  /* WHY CHOOSE */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+  .why-items{display:flex;flex-direction:column;gap:1.5rem;}
+  .why-item{display:flex;gap:1.2rem;align-items:flex-start;}
+  .why-icon{width:48px;height:48px;background:var(--sky-light);border:1px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .why-icon i{color:var(--sky-blue);}
+  .why-item h4{font-family:'Poppins',sans-serif;font-weight:600;margin-bottom:.3rem;}
+  .why-item p{color:rgba(255,255,255,0.6);font-size:.9rem;line-height:1.6;}
+  .why-img-wrap{position:relative;border-radius:20px;overflow:hidden;}
+  .why-img-wrap img{width:100%;height:500px;object-fit:cover;border-radius:20px;transition:transform .5s;}
+  .why-img-wrap:hover img{transform:scale(1.04);}
+  .why-img-wrap::after{content:'';position:absolute;inset:0;border:1px solid var(--border);border-radius:20px;}
+
+  /* CONTACT */
+  .contact-section{background:linear-gradient(180deg,var(--black) 0%,var(--dark-blue) 100%);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:start;}
+  .contact-info{display:flex;flex-direction:column;gap:1.5rem;}
+  .contact-item{display:flex;align-items:center;gap:1rem;background:var(--card-bg);border:1px solid var(--border);padding:1.2rem 1.5rem;border-radius:14px;text-decoration:none;transition:all .3s;}
+  .contact-item:hover{border-color:var(--sky-blue);transform:translateX(5px);}
+  .contact-item-icon{width:45px;height:45px;background:var(--sky-light);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .contact-item-icon i{color:var(--sky-blue);}
+  .contact-item-text label{display:block;font-size:.75rem;color:rgba(255,255,255,0.5);font-weight:500;margin-bottom:.2rem;}
+  .contact-item-text span{color:var(--white);font-size:.9rem;font-weight:500;}
+  .contact-form{background:var(--card-bg);border:1px solid var(--border);border-radius:24px;padding:2.5rem;}
+  .form-group{margin-bottom:1.2rem;}
+  .form-group label{display:block;font-size:.85rem;font-weight:500;margin-bottom:.5rem;color:rgba(255,255,255,0.8);}
+  .form-group input,.form-group textarea,.form-group select{width:100%;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:10px;padding:.8rem 1rem;color:var(--white);font-family:'Inter',sans-serif;font-size:.9rem;outline:none;transition:border-color .3s;}
+  .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--sky-blue);}
+  .form-group select option{background:var(--dark-blue);}
+  .form-group textarea{height:120px;resize:vertical;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+  .btn-submit{width:100%;padding:1rem;background:var(--sky-blue);color:var(--black);border:none;border-radius:50px;font-family:'Poppins',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:all .3s;animation:glow 2s ease-in-out infinite;}
+  .btn-submit:hover{transform:translateY(-3px);box-shadow:0 15px 40px var(--sky-glow);}
+
+  /* FOOTER */
+  footer{background:var(--black);border-top:1px solid var(--border);padding:3rem 5% 2rem;}
+  .footer-inner{display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem;margin-bottom:2rem;}
+  .footer-brand .logo{display:block;margin-bottom:1rem;}
+  .footer-brand p{color:rgba(255,255,255,0.5);font-size:.9rem;line-height:1.7;}
+  .social-links{display:flex;gap:.8rem;margin-top:1.2rem;}
+  .social-link{width:38px;height:38px;background:var(--card-bg);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);text-decoration:none;transition:all .3s;}
+  .social-link:hover{border-color:var(--sky-blue);color:var(--sky-blue);}
+  footer h4{font-family:'Poppins',sans-serif;font-weight:600;margin-bottom:1rem;font-size:.95rem;}
+  footer ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+  footer ul li a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:.9rem;transition:color .3s;}
+  footer ul li a:hover{color:var(--sky-blue);}
+  .footer-bottom{border-top:1px solid var(--border);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+  .footer-bottom p{color:rgba(255,255,255,0.4);font-size:.85rem;}
+
+  /* FLOATING CALL BUTTON */
+  .float-call{position:fixed;bottom:30px;right:30px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:.8rem;}
+  .float-call-btn{width:60px;height:60px;background:var(--sky-blue);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 5px 25px var(--sky-glow);border:none;transition:all .3s;animation:glow 2s ease-in-out infinite;}
+  .float-call-btn:hover{transform:scale(1.1);}
+  .float-call-btn i{color:var(--black);font-size:1.4rem;animation:ring 3s ease-in-out infinite;}
+  @keyframes ring{0%,100%{transform:rotate(0);}10%,30%{transform:rotate(-15deg);}20%,40%{transform:rotate(15deg);}50%{transform:rotate(0);}}
+  .float-menu{display:none;flex-direction:column;gap:.6rem;align-items:flex-end;}
+  .float-menu.open{display:flex;}
+  .float-menu-item{display:flex;align-items:center;gap:.7rem;background:var(--card-bg);border:1px solid var(--border);padding:.6rem 1rem .6rem .8rem;border-radius:50px;text-decoration:none;color:var(--white);font-size:.85rem;font-weight:500;transition:all .3s;white-space:nowrap;animation:slideIn .3s ease forwards;}
+  @keyframes slideIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+  .float-menu-item i{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;}
+  .float-menu-item.wa i{background:#25D366;color:white;}
+  .float-menu-item.call i{background:var(--sky-blue);color:var(--black);}
+  .float-menu-item.email i{background:#ea4335;color:white;}
+  .float-menu-item:hover{transform:translateX(-5px);border-color:var(--sky-blue);}
+
+  /* SCROLL ANIMATIONS */
+  .fade-in{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+  .fade-in.visible{opacity:1;transform:translateY(0);}
+
+  /* MOBILE */
+  @media(max-width:900px){
+    .hero-img{display:none;}
+    .hero{text-align:center;}
+    .hero-btns{justify-content:center;}
+    .hero-stats{justify-content:center;}
+    .about-grid,.why-grid,.contact-grid{grid-template-columns:1fr;}
+    .about-img-wrap img,.why-img-wrap img{height:300px;}
+    .pricing-grid{grid-template-columns:1fr;}
+    .footer-inner{grid-template-columns:1fr 1fr;}
+    .skills-grid{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .footer-inner{grid-template-columns:1fr;}
+    nav{padding:0 4%;}
+    .nav-links{display:none;position:absolute;top:70px;left:0;width:100%;background:var(--dark-blue);border-bottom:1px solid var(--border);flex-direction:column;padding:1rem 4%;gap:0;}
+    .nav-links.open{display:flex;}
+    .nav-links li{border-bottom:1px solid var(--border);}
+    .nav-links a{display:block;padding:.8rem 0;}
+    .hamburger{display:flex;}
+    .section-title{font-size:1.8rem;}
+    section{padding:70px 5%;}
+  }
+  @media(max-width:500px){
+    .hero h1{font-size:2rem;}
+    .float-call{bottom:20px;right:20px;}
+    .float-call-btn{width:52px;height:52px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo" onclick="showPage('home')">Sagar<span>Digital</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" onclick="showPage('home')">Home</a></li>
+      <li><a href="#" onclick="showPage('about')">About</a></li>
+      <li><a href="#" onclick="showPage('services')">Services</a></li>
+      <li><a href="#" onclick="showPage('pricing')">Pricing</a></li>
+      <li><a href="#" onclick="showPage('contact')" class="nav-cta">Contact</a></li>
+    </ul>
+    <button class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- FLOATING CALL BUTTON -->
+<div class="float-call">
+  <div class="float-menu" id="floatMenu">
+    <a href="https://wa.me/917003541894" class="float-menu-item wa" target="_blank">
+      <i class="fab fa-whatsapp"></i> WhatsApp Us
+    </a>
+    <a href="tel:+917003541894" class="float-menu-item call">
+      <i class="fas fa-phone"></i> Call Now
+    </a>
+    <a href="mailto:sagar27102008@gmail.com" class="float-menu-item email">
+      <i class="fas fa-envelope"></i> Send Email
+    </a>
+  </div>
+  <button class="float-call-btn" onclick="toggleFloat()" title="Contact Us">
+    <i class="fas fa-phone" id="floatIcon"></i>
+  </button>
+</div>
+
+<!-- HOME PAGE -->
+<div class="page active" id="home">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-particles" id="particles"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><i class="fas fa-circle"></i> Available for New Projects</div>
+      <h1>Grow Your Business <span class="highlight">Online</span> With Smart Marketing</h1>
+      <p class="tagline">Helping local businesses grow online through strategic and smart digital marketing. From social media to ads — we've got you covered.</p>
+      <div class="hero-btns">
+        <a href="#" class="btn-primary" onclick="showPage('services')">Our Services</a>
+        <a href="#" class="btn-secondary" onclick="showPage('contact')">Get Free Consultation</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Clients Served</div></div>
+        <div class="stat"><div class="stat-num">3x</div><div class="stat-label">Avg Growth</div></div>
+        <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Satisfaction</div></div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="Digital Marketing Workspace">
+    </div>
+  </div>
+
+  <!-- Services Preview -->
+  <section style="background:var(--black);">
+    <div class="section-header center fade-in">
+      <div class="section-label">What We Do</div>
+      <h2 class="section-title">Our Core Services</h2>
+      <p class="section-sub">Everything you need to build a powerful digital presence and grow your business online.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fab fa-instagram"></i></div>
+        <h3>Social Media Management</h3>
+        <p>Professional posts, captions, hashtags & audience engagement across Instagram & Facebook.</p>
+        <div class="service-price">From ₹2,999/month</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fas fa-search"></i></div>
+        <h3>Search Engine Optimization</h3>
+        <p>Rank higher on Google with targeted keyword strategies and on-page SEO optimization.</p>
+        <div class="service-price">From ₹4,999/month</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fas fa-ad"></i></div>
+        <h3>Paid Ads Management</h3>
+        <p>Facebook, Instagram & Google ads that generate real leads and conversions for your business.</p>
+        <div class="service-price">From ₹3,999/month</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="#" class="btn-primary" onclick="showPage('services')">View All Services</a>
+    </div>
+  </section>
+
+  <!-- Why Choose Preview -->
+  <section>
+    <div class="why-grid">
+      <div class="why-img-wrap fade-in">
+        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&q=80" alt="Business Team Meeting">
+      </div>
+      <div>
+        <div class="section-label">Why Sagar Digital</div>
+        <h2 class="section-title fade-in">Results That <span style="color:var(--sky-blue)">Actually</span> Matter</h2>
+        <div class="why-items">
+          <div class="why-item fade-in">
+            <div class="why-icon"><i class="fas fa-chart-line"></i></div>
+            <div><h4>Data-Driven Strategies</h4><p>Every decision backed by analytics and performance data for maximum ROI.</p></div>
+          </div>
+          <div class="why-item fade-in">
+            <div class="why-icon"><i class="fas fa-tag"></i></div>
+            <div><h4>Affordable for Startups</h4><p>Premium marketing services designed to fit small business budgets without compromise.</p></div>
+          </div>
+          <div class="why-item fade-in">
+            <div class="why-icon"><i class="fas fa-user-check"></i></div>
+            <div><h4>Personalized Solutions</h4><p>Custom strategies built specifically for your business goals and target audience.</p></div>
+          </div>
+          <div class="why-item fade-in">
+            <div class="why-icon"><i class="fas fa-headset"></i></div>
+            <div><h4>Fast Communication</h4><p>Quick responses and proactive updates so you're always in the loop.</p></div>
+          </div>
+        </div>
+        <div style="margin-top:2rem;">
+          <a href="#" class="btn-primary" onclick="showPage('contact')">Let's Talk</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section style="background:linear-gradient(135deg,rgba(56,189,248,0.1) 0%,var(--black) 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center;">
+    <div class="fade-in">
+      <div class="section-label">Ready to Grow?</div>
+      <h2 class="section-title">Turn Your Business Into a <span style="color:var(--sky-blue)">Digital Powerhouse</span></h2>
+      <p class="section-sub" style="margin:0 auto 2rem;">Book a free 30-minute consultation and discover how we can grow your business online.</p>
+      <a href="https://wa.me/917003541894" class="btn-primary" target="_blank"><i class="fab fa-whatsapp" style="margin-right:.5rem;"></i>Chat on WhatsApp</a>
+    </div>
+  </section>
+</div>
+
+<!-- ABOUT PAGE -->
+<div class="page" id="about">
+  <section style="padding-top:140px;">
+    <div class="about-grid">
+      <div class="about-img-wrap fade-in">
+        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=80" alt="Business Team">
+        <div class="about-badge">
+          <div class="num">3+</div>
+          <p>Years Experience</p>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">About Us</div>
+        <h2 class="section-title fade-in">We Are <span style="color:var(--sky-blue)">Sagar Digital</span></h2>
+        <p style="color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:1.2rem;" class="fade-in">Sagar Digital is a modern digital marketing agency helping businesses grow online through strategic marketing, branding and technology. Founded by Sagar Chouhan, we are based in Kolkata's Bansdroni area and serve clients across India.</p>
+        <p style="color:rgba(255,255,255,0.7);line-height:1.8;margin-bottom:2rem;" class="fade-in">Our mission is to help local businesses and startups build a strong digital presence that generates leads, sales and long-term success. We believe every business — no matter how small — deserves powerful marketing.</p>
+        <div class="skills-grid fade-in">
+          <div class="skill-item"><i class="fab fa-instagram"></i>Social Media Management</div>
+          <div class="skill-item"><i class="fas fa-laptop-code"></i>Website Design & Creation</div>
+          <div class="skill-item"><i class="fas fa-paint-brush"></i>Canva Designing</div>
+          <div class="skill-item"><i class="fas fa-ad"></i>Google & Meta Ads</div>
+          <div class="skill-item"><i class="fas fa-bullhorn"></i>Digital Marketing</div>
+          <div class="skill-item"><i class="fas fa-trademark"></i>Branding & Identity</div>
+          <div class="skill-item"><i class="fab fa-google"></i>Google Business Profile</div>
+          <div class="skill-item"><i class="fas fa-search"></i>SEO Optimization</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section style="background:var(--black);">
+    <div class="section-header center fade-in">
+      <div class="section-label">Our Mission</div>
+      <h2 class="section-title">Built for Local <span style="color:var(--sky-blue)">Business Growth</span></h2>
+      <p class="section-sub">We understand the challenges local businesses face. That's why we offer affordable, results-driven marketing solutions tailored to your unique needs.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;margin-top:2rem;">
+      <div class="service-card fade-in" style="text-align:center;">
+        <div class="service-icon" style="margin:0 auto 1rem;"><i class="fas fa-target"></i></div>
+        <h3>Targeted Approach</h3>
+        <p>We reach your ideal audience at the right time and place for maximum impact.</p>
+      </div>
+      <div class="service-card fade-in" style="text-align:center;">
+        <div class="service-icon" style="margin:0 auto 1rem;"><i class="fas fa-chart-bar"></i></div>
+        <h3>Transparent Reporting</h3>
+        <p>Monthly reports so you always know what's working and where your money goes.</p>
+      </div>
+      <div class="service-card fade-in" style="text-align:center;">
+        <div class="service-icon" style="margin:0 auto 1rem;"><i class="fas fa-handshake"></i></div>
+        <h3>Partnership Mindset</h3>
+        <p>We treat your business like our own and invest in your long-term success.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- SERVICES PAGE -->
+<div class="page" id="services">
+  <section style="padding-top:140px;background:var(--dark-blue);">
+    <div class="section-header center fade-in">
+      <div class="section-label">What We Offer</div>
+      <h2 class="section-title">Our Digital Marketing <span style="color:var(--sky-blue)">Services</span></h2>
+      <p class="section-sub">Comprehensive digital marketing solutions designed to grow your business and maximize your online presence.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fab fa-instagram"></i></div>
+        <h3>Social Media Management</h3>
+        <p>12 professional posts/month, caption writing, hashtags, Instagram/Facebook management, audience engagement & content calendar.</p>
+        <div class="service-price">₹2,999 / month</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fas fa-search"></i></div>
+        <h3>Search Engine Optimization</h3>
+        <p>Website SEO audit, keyword research, on-page optimization, Google ranking strategy & monthly performance reports.</p>
+        <div class="service-price">₹4,999 / month</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fab fa-google"></i></div>
+        <h3>Google Business Profile</h3>
+        <p>Complete profile setup, business description writing, service & product listing, SEO optimization & local ranking strategy.</p>
+        <div class="service-price">₹1,999 (one-time)</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+        <h3>Website Development</h3>
+        <p>Professional business website, mobile-responsive design, contact form integration, SEO-optimized pages & fast loading design.</p>
+        <div class="service-price">₹5,999 – ₹9,999</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fas fa-ad"></i></div>
+        <h3>Paid Ads Management</h3>
+        <p>Facebook & Instagram ads, Google ads setup, lead generation campaigns, target audience research & conversion optimization.</p>
+        <div class="service-price">₹3,999 / month</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+        <h3>Branding & Content Design</h3>
+        <p>Logo design, brand colors & fonts, social media templates & professional brand identity that makes you stand out.</p>
+        <div class="service-price">₹2,499</div>
+      </div>
+    </div>
+  </section>
+  <section style="background:var(--black);">
+    <div class="why-grid">
+      <div>
+        <div class="section-label">Why Choose Us</div>
+        <h2 class="section-title fade-in">Marketing That <span style="color:var(--sky-blue)">Delivers Results</span></h2>
+        <div class="why-items">
+          <div class="why-item fade-in"><div class="why-icon"><i class="fas fa-chart-line"></i></div><div><h4>Data-driven marketing strategies</h4><p>We use analytics to guide every decision and optimize performance continuously.</p></div></div>
+          <div class="why-item fade-in"><div class="why-icon"><i class="fas fa-tag"></i></div><div><h4>Affordable pricing for startups</h4><p>Premium marketing that doesn't break the bank for small businesses and startups.</p></div></div>
+          <div class="why-item fade-in"><div class="why-icon"><i class="fas fa-user-cog"></i></div><div><h4>Personalized marketing solutions</h4><p>No cookie-cutter strategies — everything is built specifically for your business.</p></div></div>
+          <div class="why-item fade-in"><div class="why-icon"><i class="fas fa-comments"></i></div><div><h4>Fast communication and support</h4><p>Quick turnaround and responsive support whenever you need us.</p></div></div>
+        </div>
+      </div>
+      <div class="why-img-wrap fade-in">
+        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&q=80" alt="Social Media Marketing">
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- PRICING PAGE -->
+<div class="page" id="pricing">
+  <section style="padding-top:140px;background:var(--dark-blue);">
+    <div class="section-header center fade-in">
+      <div class="section-label">Pricing Plans</div>
+      <h2 class="section-title">Simple, <span style="color:var(--sky-blue)">Transparent</span> Pricing</h2>
+      <p class="section-sub">Choose a plan that fits your business goals. All plans include dedicated support and monthly reporting.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card fade-in">
+        <div class="plan">Starter</div>
+        <div class="price"><sup>₹</sup>2999</div>
+        <div class="price-type">per month</div>
+        <div class="focus">Social Media Setup</div>
+        <hr class="pricing-divider">
+        <ul class="pricing-features">
+          <li><i class="fas fa-check-circle"></i>10 Professional Posts</li>
+          <li><i class="fas fa-check-circle"></i>Caption Writing & Hashtags</li>
+          <li><i class="fas fa-check-circle"></i>Instagram / Facebook Setup</li>
+          <li><i class="fas fa-check-circle"></i>Audience Engagement</li>
+          <li><i class="fas fa-check-circle"></i>Content Calendar</li>
+          <li><i class="fas fa-check-circle"></i>Monthly Report</li>
+        </ul>
+        <a href="#" class="btn-pricing outline" onclick="showPage('contact')">Get Started</a>
+      </div>
+      <div class="pricing-card featured fade-in">
+        <div class="featured-badge">Most Popular</div>
+        <div class="plan">Growth</div>
+        <div class="price"><sup>₹</sup>6999</div>
+        <div class="price-type">per month</div>
+        <div class="focus">SEO + Social</div>
+        <hr class="pricing-divider">
+        <ul class="pricing-features">
+          <li><i class="fas fa-check-circle"></i>Everything in Starter</li>
+          <li><i class="fas fa-check-circle"></i>Ads Strategy Planning</li>
+          <li><i class="fas fa-check-circle"></i>SEO Optimization</li>
+          <li><i class="fas fa-check-circle"></i>Google Business Profile</li>
+          <li><i class="fas fa-check-circle"></i>Keyword Research</li>
+          <li><i class="fas fa-check-circle"></i>Performance Analytics</li>
+        </ul>
+        <a href="#" class="btn-pricing solid" onclick="showPage('contact')">Get Started</a>
+      </div>
+      <div class="pricing-card fade-in">
+        <div class="plan">Premium</div>
+        <div class="price"><sup>₹</sup>12999</div>
+        <div class="price-type">per month</div>
+        <div class="focus">Full Marketing</div>
+        <hr class="pricing-divider">
+        <ul class="pricing-features">
+          <li><i class="fas fa-check-circle"></i>Everything in Growth</li>
+          <li><i class="fas fa-check-circle"></i>Ads + Full Content</li>
+          <li><i class="fas fa-check-circle"></i>Facebook & Google Ads</li>
+          <li><i class="fas fa-check-circle"></i>Branding & Design</li>
+          <li><i class="fas fa-check-circle"></i>Lead Generation</li>
+          <li><i class="fas fa-check-circle"></i>Priority Support</li>
+        </ul>
+        <a href="#" class="btn-pricing outline" onclick="showPage('contact')">Get Started</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Individual Services Pricing -->
+  <section style="background:var(--black);">
+    <div class="section-header center fade-in">
+      <div class="section-label">Individual Services</div>
+      <h2 class="section-title">Pick What You <span style="color:var(--sky-blue)">Need</span></h2>
+      <p class="section-sub">Need just one service? No problem. Mix and match based on your budget and goals.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fab fa-instagram"></i></div>
+        <h3>Social Media Management</h3>
+        <p>12 posts, captions, hashtags, engagement, content calendar & Instagram/Facebook management.</p>
+        <div class="service-price">₹2,999 / month</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fas fa-search"></i></div>
+        <h3>SEO</h3>
+        <p>Full audit, keyword research, on-page optimization, Google ranking & monthly reports.</p>
+        <div class="service-price">₹4,999 / month</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fab fa-google"></i></div>
+        <h3>Google Business Profile</h3>
+        <p>Setup, description, services, SEO optimization & local ranking strategy. One-time payment.</p>
+        <div class="service-price">₹1,999 (one-time)</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+        <h3>Website Development</h3>
+        <p>Mobile-responsive, SEO-optimized business website with contact form & fast loading.</p>
+        <div class="service-price">₹5,999 – ₹9,999</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fas fa-ad"></i></div>
+        <h3>Paid Ads Management</h3>
+        <p>Facebook, Instagram & Google ads with lead generation & conversion optimization.</p>
+        <div class="service-price">₹3,999 / month</div>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+        <h3>Branding & Design</h3>
+        <p>Logo, brand colors, fonts, social media templates & complete brand identity package.</p>
+        <div class="service-price">₹2,499</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:3rem;" class="fade-in">
+      <p style="color:rgba(255,255,255,0.6);margin-bottom:1.5rem;">Not sure which plan is right for you? Let's talk!</p>
+      <a href="https://wa.me/917003541894" class="btn-primary" target="_blank"><i class="fab fa-whatsapp" style="margin-right:.5rem;"></i>Get Free Consultation</a>
+    </div>
+  </section>
+</div>
+
+<!-- CONTACT PAGE -->
+<div class="page" id="contact">
+  <section class="contact-section" style="padding-top:140px;">
+    <div class="section-header center fade-in">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-title">Let's <span style="color:var(--sky-blue)">Grow Together</span></h2>
+      <p class="section-sub">Have a project in mind? Reach out and let's discuss how we can take your business to the next level.</p>
+    </div>
+    <div class="contact-grid">
+      <div>
+        <div class="section-label" style="margin-bottom:1.5rem;">Contact Information</div>
+        <div class="contact-info">
+          <a href="tel:+917003541894" class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-phone"></i></div>
+            <div class="contact-item-text"><label>Phone</label><span>+91 7003541894</span></div>
+          </a>
+          <a href="mailto:sagar27102008@gmail.com" class="contact-item">
+            <div class="contact-item-icon"><i class="fas fa-envelope"></i></div>
+            <div class="contact-item-text"><label>Email</label><span>sagar27102008@gmail.com</span></div>
+          </a>
+          <a href="https://wa.me/917003541894" class="contact-item" target="_blank">
+            <div class="contact-item-icon"><i class="fab fa-whatsapp"></i></div>
+            <div class="contact-item-text"><label>WhatsApp</label><span>+91 7003541894</span></div>
+          </a>
+          <div class="contact-item" style="cursor:default;">
+            <div class="contact-item-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div class="contact-item-text"><label>Location</label><span>Bansdroni, Kolkata, West Bengal</span></div>
+          </div>
+        </div>
+        <div style="margin-top:2rem;">
+          <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80" alt="Office" style="width:100%;border-radius:16px;height:220px;object-fit:cover;border:1px solid var(--border);">
+        </div>
+      </div>
+      <div class="contact-form fade-in">
+        <h3 style="font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:700;margin-bottom:1.5rem;">Send a Message</h3>
+        <div class="form-row">
+          <div class="form-group"><label>First Name</label><input type="text" placeholder="Your name"></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 XXXXX XXXXX"></div>
+        </div>
+        <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"></div>
+        <div class="form-group">
+          <label>Service Interested In</label>
+          <select>
+            <option value="">Select a service</option>
+            <option>Social Media Management</option>
+            <option>SEO Optimization</option>
+            <option>Google Business Profile</option>
+            <option>Website Development</option>
+            <option>Paid Ads Management</option>
+            <option>Branding & Design</option>
+            <option>Full Marketing Package</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Message</label><textarea placeholder="Tell us about your business and goals..."></textarea></div>
+        <button class="btn-submit" onclick="handleSubmit()">Send Message <i class="fas fa-paper-plane" style="margin-left:.5rem;"></i></button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo" onclick="showPage('home')">Sagar<span>Digital</span></a>
+      <p>Helping local businesses grow online through strategic and smart digital marketing. Kolkata-based, serving clients across India.</p>
+      <div class="social-links">
+        <a href="https://wa.me/917003541894" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+        <a href="mailto:sagar27102008@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('home')">Home</a></li>
+        <li><a href="#" onclick="showPage('about')">About Us</a></li>
+        <li><a href="#" onclick="showPage('services')">Services</a></li>
+        <li><a href="#" onclick="showPage('pricing')">Pricing</a></li>
+        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#" onclick="showPage('services')">Social Media</a></li>
+        <li><a href="#" onclick="showPage('services')">SEO</a></li>
+        <li><a href="#" onclick="showPage('services')">Google Ads</a></li>
+        <li><a href="#" onclick="showPage('services')">Website Design</a></li>
+        <li><a href="#" onclick="showPage('services')">Branding</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 Sagar Digital. All rights reserved.</p>
+    <p>Made with <i class="fas fa-heart" style="color:var(--sky-blue);"></i> in Kolkata</p>
+  </div>
+</footer>
+
+<script>
+  // PAGE NAVIGATION
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+    // Reset animations
+    setTimeout(initAnimations, 100);
+    // Close mobile menu
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  // HAMBURGER
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+
+  // FLOATING BUTTON
+  let floatOpen = false;
+  function toggleFloat() {
+    floatOpen = !floatOpen;
+    const menu = document.getElementById('floatMenu');
+    const icon = document.getElementById('floatIcon');
+    menu.classList.toggle('open', floatOpen);
+    icon.className = floatOpen ? 'fas fa-times' : 'fas fa-phone';
+  }
+
+  // PARTICLES
+  function createParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+    for (let i = 0; i < 25; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (Math.random() * 10 + 8) + 's';
+      p.style.animationDelay = (Math.random() * 10) + 's';
+      p.style.width = (Math.random() * 3 + 1) + 'px';
+      p.style.height = p.style.width;
+      container.appendChild(p);
+    }
+  }
+
+  // SCROLL ANIMATIONS
+  function initAnimations() {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, {threshold: 0.1});
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.classList.remove('visible');
+      obs.observe(el);
+    });
+  }
+
+  // FORM SUBMIT
+  function handleSubmit() {
+    const btn = document.querySelector('.btn-submit');
+    btn.textContent = '✓ Message Sent!';
+    btn.style.background = '#22c55e';
+    setTimeout(() => {
+      btn.innerHTML = 'Send Message <i class="fas fa-paper-plane" style="margin-left:.5rem;"></i>';
+      btn.style.background = '';
+    }, 3000);
+  }
+
+  // INIT
+  createParticles();
+  initAnimations();
+
+  // Trigger animations for initially visible elements
+  setTimeout(() => {
+    document.querySelectorAll('.fade-in').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) el.classList.add('visible');
+    });
+  }, 200);
+
+  // Close float menu on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.float-call')) {
+      if (floatOpen) toggleFloat();
+    }
+  });
+
+  // Close nav on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('nav')) {
+      document.getElementById('navLinks').classList.remove('open');
+    }
+  });
+</script>
+</body>
+</html>
